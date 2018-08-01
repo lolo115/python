@@ -20,14 +20,11 @@ def printConnectionAttr(connection):
         print("Server version     = ",connection.version)
 
 def connectToOracle(url, username, password, mode=None):
-    try:
-        if mode is not None:
-            connection = cx_Oracle.Connection (user=username, password=password, dsn=url, mode=mode)
-        else:
-            connection = cx_Oracle.Connection (user=username, password=password, dsn=url)
-    except cx_Oracle.DatabaseError as ex:
-        raise
-
+    if mode is not None:
+       connection = cx_Oracle.Connection (user=username, password=password, dsn=url, mode=mode)
+    else:
+       connection = cx_Oracle.Connection (user=username, password=password, dsn=url)
+    
     return connection
 
 # main
