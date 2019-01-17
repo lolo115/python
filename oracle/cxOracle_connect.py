@@ -24,7 +24,6 @@ def connectToOracle(url, username, password, mode=None):
        connection = cx_Oracle.Connection (user=username, password=password, dsn=url, mode=mode)
     else:
        connection = cx_Oracle.Connection (user=username, password=password, dsn=url)
-    
     return connection
 
 # main
