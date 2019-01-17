@@ -2,10 +2,10 @@ import io
 import pandas as pd
 import os
 import cx_Oracle
-from flask import Response, render_template
+from WS_flask import Response, render_template
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import matplotlib as plt;
-from flask import Flask
+from WS_flask import Flask
 
 oh="D:/tools/Oracle/instantclient_12_2_x8664"
 os.environ["ORACLE_HOME"]=oh
