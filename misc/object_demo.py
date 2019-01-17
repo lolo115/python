@@ -1,6 +1,10 @@
 from __future__ import print_function
 class Dba:
     #  The __init__() function is called automatically every time the class is being used to create a new object.
+    # But it's not the "constructor" which is __new__ but as __new__ is rarely used (inheritance for example),
+    # we frequently use __init__ (initiator of something that is previously created by __new__)
+    # https://docs.python.org/3/reference/datamodel.html#basic-customization
+
     def __init__(self, name, age, skills):
         self.name=name
         self.age=age
@@ -27,6 +31,8 @@ class Dba:
 # main
 if __name__ == '__main__':
     laurent = Dba(name="Laurent",age=40,skills='Good')
+    print("laurent's type = ", type(laurent))
+
     print ("Laurent's age: ",laurent.getAge())
     laurent.setAge(41)
     print ("After his birthday: " , laurent.getAge ())
