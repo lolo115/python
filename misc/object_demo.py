@@ -40,5 +40,5 @@ if __name__ == '__main__':
     print ("But wait ... : ", laurent.age)
 
     #print("Laurent's skills:", laurent.__skills)
-    print("Laurent's skills:", laurent.getSkills()  )
+    print("Laurent's skills:", laurent.getSkills())
 
