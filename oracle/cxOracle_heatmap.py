@@ -1,5 +1,8 @@
 import numpy as np
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
+from matplotlib import cm
 import pandas as pd
 import cx_Oracle as cx
 import sys
@@ -9,6 +12,7 @@ platform=sys.platform
 if platform=='darwin':
     root_dir = '/Users/leturgezl/PycharmProjects/work'
     oh="/Users/leturgezl/Applications/instantclient_12_2"
+
 
 if platform.startswith('win'):
     root_dir = 'D:/JetBrains_projects/PycharmProjects/work'
@@ -47,7 +51,7 @@ if __name__ == '__main__':
                         decode(session_state,'WAITING',count(*),0)/360 c1,
                         decode(session_state,'ON CPU',count(*),0) /360 c2,
                         count(*)/360 cnt,
-                        count(*)/360/cpu.core_nb load
+                        count(*)/360/nvl(cpu.core_nb,1) load
                  from dba_hist_active_sess_history, (select value as core_nb from v$osstat where stat_name='NUM_CPU_CORES') cpu
                  where sample_time > sysdate - 30
                  group by to_char(sample_time,'YYYY-MM-DD HH24'),session_state, cpu.core_nb
@@ -72,12 +76,59 @@ if __name__ == '__main__':
     try:
         c=connectToOracle("192.168.99.3:1521/orcl","sys","oracle",mode=cx.SYSDBA)
         df=pd.read_sql_query(qry, c)
-        with pd.option_context ('display.max_rows', None, 'display.max_columns', None):
-            print(df)
 
-    except cx_Oracle.DatabaseError as ex:
+    except cx.DatabaseError as ex:
         err, =ex.args
         print("Error code    = ",err.code)
         print("Error Message = ",err.message)
         os._exit(1)
+
     c.close()
+
+
+    # DataFrame processing
+    # with pd.option_context ('display.max_rows', None, 'display.max_columns', None):
+    print(df)
+    # print(df.values)
+
+    # Getting first column
+    df_date = df['MTIME']
+    print(df_date.values.shape)
+
+    # Getting dataframe data after dropping MTIME column and values in numpy format
+    df_data = df.drop('MTIME', axis=1)
+    print(df_data.values.shape)
+    np_data=df_data.values
+
+    # Getting column labels
+    np_column_name = np.asarray(list(df_data))
+    #print(df_column_name)
+    print(np_column_name.shape)
+
+    fig, ax = plt.subplots()
+    colormap = cm.jet
+    im=ax.imshow(np_data, cmap=colormap, vmin=0., vmax=2)
+
+    # Create colorbar
+    cbar = ax.figure.colorbar(im, ax=ax, cmap=colormap)
+    cbar.ax.set_ylabel("DataBase Load", rotation=-90, va="bottom")
+
+    # We want to show all ticks
+    ax.set_xticks(np.arange(len(np_column_name)))
+    ax.set_yticks(np.arange(len(df_date.values)))
+    # We set ticks labels
+    ax.set_xticklabels(np_column_name)
+    ax.set_yticklabels(df_date.values)
+    # Rotate tick labels and set their alignments
+    plt.setp(ax.get_xticklabels(), rotation=55, ha="right",rotation_mode="anchor")
+
+    # Grid creation
+    for edge, spine in ax.spines.items():
+        spine.set_visible(False)
+    ax.set_xticks(np.arange(np_data.shape[1] + 1) - .5, minor=True)
+    ax.set_yticks(np.arange(np_data.shape[0] + 1) - .5, minor=True)
+    ax.grid(which="minor", color="w", linestyle='-', linewidth=1)
+    ax.tick_params(which="minor", bottom=False, left=False)
+
+    fig.tight_layout()
+    plt.show()
