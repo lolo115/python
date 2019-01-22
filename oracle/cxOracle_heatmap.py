@@ -97,7 +97,6 @@ if __name__ == '__main__':
 
     # Getting column labels
     np_column_name = np.asarray(list(df_data))
-    print(np_column_name.shape)
 
     fig, ax = plt.subplots()
     colormap = cm.jet

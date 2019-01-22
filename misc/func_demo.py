@@ -10,7 +10,7 @@ if __name__ == '__main__':
     print(l)
 
     # Clean ... we map addOne function on each value of the array
-    print(map(addOne, l))
+    print(list(map(addOne, l)))
 
     # Better ... same with a lambda (anonymous function)
-    print(map(lambda x:x+1,l))
+    print(list(map(lambda x:x+1,l)))
