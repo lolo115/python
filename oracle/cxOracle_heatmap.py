@@ -87,22 +87,16 @@ if __name__ == '__main__':
 
 
     # DataFrame processing
-    # with pd.option_context ('display.max_rows', None, 'display.max_columns', None):
-    print(df)
-    # print(df.values)
 
     # Getting first column
     df_date = df['MTIME']
-    print(df_date.values.shape)
 
     # Getting dataframe data after dropping MTIME column and values in numpy format
     df_data = df.drop('MTIME', axis=1)
-    print(df_data.values.shape)
     np_data=df_data.values
 
     # Getting column labels
     np_column_name = np.asarray(list(df_data))
-    #print(df_column_name)
     print(np_column_name.shape)
 
     fig, ax = plt.subplots()
