@@ -3,8 +3,9 @@ def addOne(v):
 
 if __name__ == '__main__':
     l=[1,2,3,4,5]
+    # List transformation
 
-    # crap
+    # Crap
     for i in range(len(l)):
        l[i]=addOne(l[i])
     print(l)
