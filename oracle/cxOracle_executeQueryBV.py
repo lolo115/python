@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 
-oh="D:/tools/Oracle/instantclient_12_2_x8664"
+oh="/Users/leturgezl/Applications/instantclient_12_2"
 os.environ["ORACLE_HOME"]=oh
 os.environ["PATH"]=oh+os.pathsep+os.environ["PATH"]
 os.environ["NLS_LANG"]="AMERICAN_AMERICA.AL32UTF8"
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     c=cx_Oracle.Connection
     stmt="select name,value from v$parameter where name = :param"
     try:
-        c=connectToOracle("192.168.99.2:1521/orcl","sys","oracle",mode=cx_Oracle.SYSDBA)
+        c=connectToOracle("192.168.99.3:1521/orcl","sys","oracle",mode=cx_Oracle.SYSDBA)
         p = {'param': "log_archive_dest_1"}
 
 
@@ -63,14 +63,15 @@ if __name__ == '__main__':
         ##         NUMPY STYLE
         #################################################
         print (">>>>>>    NUMPY STYLE")
-        curs=executeStmt(c,stmt,p)
+        curs=executeStmt(conn=c,stmt=stmt,parameters=p)
         #printCursor(curs)
         #describeCursor(curs)
         if curs.rowcount!=0:
             curs.scroll(value=0)
         r = curs.fetchall()
+        print("type(r) = ",type(r)," -- r=",r)
         n = np.array (r)
-        print("n=", n)
+        print("type(n) = ",type(n)," -- n=", n)
 
         #################################################
         ##         PANDAS STYLE
