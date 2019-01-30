@@ -2,7 +2,7 @@ import io
 import pandas as pd
 import os
 import cx_Oracle
-from WS_flask import Response, render_template
+from flask import Response, render_template
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import matplotlib as plt;
 from WS_flask import Flask
@@ -41,8 +41,8 @@ def create_figure():
 
     c = cx_Oracle.Connection;
     try:
-        c = connectToOracle ("lnvfr99720427.fr.auchan.com:1521/ACCESS_DQMDM.FR.AUCHAN.COM", "datacentric_monitor",
-                             "datacentric_monitor")
+        c = connectToOracle ("192.168.99.3:1521/orcl", "system",
+                             "oracle")
         df = pd.read_sql_query ("select t.analysis_date, t.tablespace_name, \
                                     t.size_go, t.free_space_go, t.maxsize_go, \
                                     t.MAXSIZE_GO-t.SIZE_GO+t.FREE_SPACE_GO usable_GO \
@@ -50,7 +50,7 @@ def create_figure():
                                     where tablespace_name ='ICRFR2_DATA' \
                                     order by 1", c)
     except cx_Oracle.DatabaseError as dberror:
-        print dberror
+        print(dberror)
 
     fig = plt.figure.Figure()
     #xs = range(100)

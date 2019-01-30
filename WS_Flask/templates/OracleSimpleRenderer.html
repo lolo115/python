@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+   <body>
+      <font face="Verdana">
+          <p>
+              DB NAME = {{ name }}
+          </p>
+
+      <table border = 1>
+          <tr>
+          <th>Name</th>
+          <th>Value</th>
+          </tr>
+          {% for index, row in result.iterrows() %}
+            <tr>
+                <td> {{ row["NAME"] }} </td>
+                <td> {{ row["VALUE"] }} </td>
+            </tr>
+          {% endfor %}
+      </table>
+      </font>
+   </body>
+</html>

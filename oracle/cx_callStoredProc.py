@@ -7,7 +7,7 @@ import pandas as pd
 
 # REFERENCE : https://www.oracle.com/technetwork/articles/prez-stored-proc-084100.html
 
-oh="D:/tools/Oracle/instantclient_12_2_x8664"
+oh="/Users/leturgezl/Applications/instantclient_12_2"
 os.environ["ORACLE_HOME"]=oh
 os.environ["PATH"]=oh+os.pathsep+os.environ["PATH"]
 os.environ["NLS_LANG"]="AMERICAN_AMERICA.AL32UTF8"
@@ -38,19 +38,23 @@ if __name__ == '__main__':
     c=cx_Oracle.Connection
     stmt="select avg(salary) from emp"
     try:
-        c=connectToOracle("192.168.99.3:1521/orcl","laurent","laurent123")
+        c=connectToOracle("192.168.99.3:1521/orcl","laurent","laurent")
         curs=executeStmt(c,stmt,parameters=None); print('Before : '); printCursor(curs)
         curs=c.cursor();
+        # CREATE OR REPLACE PROCEDURE GENERAL_SAL_INCREASE (pct in number default 0)
         curs.callproc("GENERAL_SAL_INCREASE",[0])
         curs = executeStmt (c, stmt, parameters=None); print ('After : '); printCursor (curs)
 
         curs = executeStmt (c, stmt, parameters=None); print ('Before : '); printCursor (curs)
         curs = c.cursor ();
         avgsal = curs.var(cx_Oracle.NUMBER)
+
+        # CREATE OR REPLACE PROCEDURE GENERAL_SAL_INCREASE_OUT (pct in number default 0, avg_sal out number) is
         curs.callproc ("GENERAL_SAL_INCREASE_OUT", [ 5, avgsal ])
         curs = executeStmt (c, stmt, parameters=None); print ('After : '); printCursor (curs), print('avgsal = ',avgsal.getvalue(pos=0))
 
         curs = c.cursor ();
+        # CREATE OR REPLACE EDITIONABLE FUNCTION "LAURENT"."GET_SAL" (fname in varchar2, lname in varchar2) return number
         janette_king_sal = curs.callfunc("GET_SAL",cx_Oracle.NUMBER, ["Janette","King"]);
         print("janette king sal", janette_king_sal)
 

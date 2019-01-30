@@ -1,5 +1,7 @@
 import cx_Oracle as cx
 import os
+import pandas as pd
+import numpy as np
 
 oh="/Users/leturgezl/Applications/instantclient_12_2"
 os.environ["ORACLE_HOME"]=oh
@@ -21,6 +23,16 @@ def connectToOracle(url, username, password, mode=None):
 
 # main
 if __name__ == '__main__':
+    df = pd.DataFrame(np.random.randn(6, 4),index=list('abcdef'),columns=list('ABCD'))
+    print(df)
+
+    print(type(df['B'].values))
+    print(df.values)
+    print(df['B'].values)
+
+
+
+    exit(0)
     c=cx.Connection
     try:
         c=connectToOracle(url="192.168.99.3:1521/orcl",
