@@ -82,9 +82,8 @@ if __name__ == '__main__':
         print("Error code    = ",err.code)
         print("Error Message = ",err.message)
         os._exit(1)
-
-    c.close()
-
+    finally:
+        c.close()
 
     # DataFrame processing
 
