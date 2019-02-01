@@ -93,6 +93,7 @@ def create_storage_figure_bar():
         c.close()
 
     fig, ax = plt.subplots()
+    fig.set_size_inches(10, 7)
     cmap = mpl.colors.ListedColormap(["red", "darkblue"])
     ax = df.plot.bar(stacked=True, xticks=df.index, ax=ax, colormap=cmap)
     ax.set_xticklabels(df.TABLESPACE_NAME, rotation=0, fontsize=8)
@@ -172,6 +173,7 @@ def create_perf_figure_HM():
     np_column_name = np.asarray(list(df_data))
 
     fig, ax = plt.subplots()
+    fig.set_size_inches(10,7)
     colormap = cm.jet
     im = ax.imshow(np_data, cmap=colormap, vmin=0., vmax=2)
 
