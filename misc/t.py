@@ -15,8 +15,8 @@ if __name__=='__main__':
     print(r.shape)
     mycm=get_cmap()
     print(mycm(0.1))
-    exit(0)
-    #random_colors=np.random.choice(input_colors, nb, p=[0.4, 0.2, 0.05, 0.05, 0.2, 0.07, 0.03])
+
+    random_colors=np.random.choice(input_colors, nb, p=[0.4, 0.2, 0.05, 0.05, 0.2, 0.07, 0.03])
     random_colors_df=pd.DataFrame(random_colors, columns=['COLOR'])
 
     size_df=pd.DataFrame(np.random.randint(37, 46, size=(nb, 1)), columns=['SIZE'])
