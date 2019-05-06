@@ -131,7 +131,6 @@ if __name__ == '__main__':
     internet_gateway = None
     ssh_public_key_path='/Users/leturgezl/.ssh/id_rsa.pub'
 
-    vcn = None
     vcn_name = 'PREMISEO-VCN'
     subnet_name = vcn_name+'-subnet1'
     internet_gateway_name='premiseo_GW'
