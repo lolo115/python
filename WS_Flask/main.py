@@ -7,16 +7,11 @@ from matplotlib import cm
 import socket
 import os
 import io
-import sys
 import pandas as pd
 import numpy as np
 import cx_Oracle as cx
 
-if sys.platform=='darwin':
-    oh="/Users/leturgezl/Applications/instantclient_12_2"
-if sys.platform.startswith('win'):
-    oh="D:/tools/Oracle/instantclient_12_2_x8664"
-
+oh="/Users/leturgezl/Applications/instantclient_12_2"
 os.environ["ORACLE_HOME"]=oh
 os.environ["PATH"]=oh+os.pathsep+os.environ["PATH"]
 os.environ["NLS_LANG"]="AMERICAN_AMERICA.AL32UTF8"
