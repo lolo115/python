@@ -32,7 +32,6 @@ if __name__ == '__main__':
     internet_gateway = None
     ssh_public_key_path='/Users/leturgezl/.ssh/id_rsa.pub'
 
-
     vcn_name = 'PREMISEO-VCN'
     subnet_name = vcn_name+'-subnet1'
     cidr_block='10.10.10.0/24'
