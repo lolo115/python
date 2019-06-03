@@ -23,8 +23,8 @@ def time_function(function):
 
     return wrapped
 
-# @log_function
-# @time_function
+@log_function
+@time_function
 def hello_fn(name='No one'):
     time.sleep(1)
     print('Hello "{}"'.format(name))
