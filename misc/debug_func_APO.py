@@ -35,5 +35,4 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 # Execute the function
 hello_fn('Test')
-
 hello_fn('Test2')
